@@ -1,4 +1,5 @@
-**# RestaurantApp** is an android app built using zomato api and firebase with mvvm architecture and coroutines & retrofit.
+
+**# RestaurantApp** is an android app built using zomato api and firebase with mvvm architecture, coroutines & retrofit.
 
 <img src="app/src/main/res/drawable/1.jpg" height="600" width="300">  <img src="app/src/main/res/drawable/2.jpg" height="600" width="300">  
 <img src="app/src/main/res/drawable/3.jpg" height="600" width="300">  <img src="app/src/main/res/drawable/4.jpg" height="600" width="300">  
