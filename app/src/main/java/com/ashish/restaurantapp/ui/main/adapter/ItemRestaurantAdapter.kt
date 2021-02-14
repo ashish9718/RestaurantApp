@@ -12,20 +12,23 @@ import com.ashish.restaurantapp.data.models.Location
 import com.ashish.restaurantapp.data.models.Restaurant
 import com.ashish.restaurantapp.data.models.RestaurantX
 import com.ashish.restaurantapp.data.models.UserRating
-import com.ashish.restaurantapp.data.repository.UserRepository
-import com.ashish.restaurantapp.ui.main.view.activities.RestaurantDetailsActivity
 import com.ashish.restaurantapp.databinding.ItemRestaurantBinding
+import com.ashish.restaurantapp.ui.main.view.activities.RestaurantDetailsActivity
 import com.ashish.restaurantapp.ui.main.viewmodel.UserViewModel
 import com.ashish.restaurantapp.utils.Status
 import com.squareup.picasso.Picasso
 import es.dmoral.toasty.Toasty
+import javax.inject.Inject
 
-
-class ItemRestaurantAdapter(var restaurantList: List<Restaurant>?,var context: Context, private var lifecycleOwner: LifecycleOwner) :
+class ItemRestaurantAdapter(
+    private var restaurantList: List<Restaurant>?,
+    var context: Context,
+    private var lifecycleOwner: LifecycleOwner,
+    private var userViewModel: UserViewModel
+) :
     RecyclerView.Adapter<ItemRestaurantAdapter.CustomViewHolder>() {
 
-    var addedToWishlist = false
-    var userViewModel = UserViewModel(UserRepository())
+    private var addedToWishlist = false
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -50,7 +53,7 @@ class ItemRestaurantAdapter(var restaurantList: List<Restaurant>?,var context: C
         holder.itemRestaurantBinding?.wishlist?.setOnClickListener {
             if (!addedToWishlist) {
                 addedToWishlist = true
-                userViewModel.addRestaurantToWishList(res.id).observe(lifecycleOwner){ resource->
+                userViewModel.addRestaurantToWishList(res.id).observe(lifecycleOwner) { resource ->
                     when (resource.status) {
                         Status.SUCCESS -> {
                             resource.data?.let {
@@ -60,27 +63,35 @@ class ItemRestaurantAdapter(var restaurantList: List<Restaurant>?,var context: C
                         Status.LOADING -> {
                         }
                         Status.ERROR -> {
-                            Toasty.error(context, resource.message.toString(), Toast.LENGTH_SHORT).show()
+                            Toasty.error(context, resource.message.toString(), Toast.LENGTH_SHORT)
+                                .show()
                         }
                     }
                 }
                 holder.itemRestaurantBinding!!.wishlist.setImageResource(R.drawable.bookmarked)
             } else {
                 addedToWishlist = false
-                userViewModel.removeRestaurantFromWishList(res.id).observe(lifecycleOwner){ resource->
-                    when (resource.status) {
-                        Status.SUCCESS -> {
-                            resource.data?.let {
-                                Toasty.success(context, it.toString(), Toast.LENGTH_SHORT).show()
+                userViewModel.removeRestaurantFromWishList(res.id)
+                    .observe(lifecycleOwner) { resource ->
+                        when (resource.status) {
+                            Status.SUCCESS -> {
+                                resource.data?.let {
+                                    Toasty.success(context, it.toString(), Toast.LENGTH_SHORT)
+                                        .show()
+                                }
+                            }
+                            Status.LOADING -> {
+                            }
+                            Status.ERROR -> {
+                                Toasty.error(
+                                    context,
+                                    resource.message.toString(),
+                                    Toast.LENGTH_SHORT
+                                )
+                                    .show()
                             }
                         }
-                        Status.LOADING -> {
-                        }
-                        Status.ERROR -> {
-                            Toasty.error(context, resource.message.toString(), Toast.LENGTH_SHORT).show()
-                        }
                     }
-                }
                 holder.itemRestaurantBinding!!.wishlist.setImageResource(R.drawable.bookmark)
             }
         }
@@ -111,6 +122,26 @@ class ItemRestaurantAdapter(var restaurantList: List<Restaurant>?,var context: C
             } else {
                 itemRestaurantBinding!!.smileRating.setRating(rate)
             }
+
+//            val pair1 =
+//                android.util.Pair<View, String>(itemRestaurantBinding!!.imageview, "resImage")
+//            val pair2 =
+//                android.util.Pair<View, String>(itemRestaurantBinding!!.restaurantName, "restName")
+//            val pair3 = android.util.Pair<View, String>(
+//                itemRestaurantBinding!!.restaurantAddress,
+//                "restLocation"
+//            )
+//            val options =
+//                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+//                    ActivityOptions.makeSceneTransitionAnimation(
+//                        context as Activity?,
+//                        pair1,
+//                        pair2,
+//                        pair3
+//                    )
+//                } else {
+//                    TODO("VERSION.SDK_INT < LOLLIPOP")
+//                }
             itemView.setOnClickListener {
                 val intent = Intent(context, RestaurantDetailsActivity::class.java)
                 intent.putExtra("rest_id", id)

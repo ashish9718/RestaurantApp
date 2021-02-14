@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.ashish.restaurantapp.data.repository.AuthRepository
 import com.ashish.restaurantapp.databinding.ActivitySignUpBinding
@@ -13,13 +14,15 @@ import com.ashish.restaurantapp.ui.base.AuthViewModelFactory
 import com.ashish.restaurantapp.ui.main.viewmodel.AuthViewModel
 import com.ashish.restaurantapp.utils.Resource
 import com.ashish.restaurantapp.utils.Status
+import dagger.hilt.android.AndroidEntryPoint
 import es.dmoral.toasty.Toasty
 
+@AndroidEntryPoint
 class SignUpActivity : AppCompatActivity() {
-    private val TAG = "SignUpActivity"
 
     lateinit var binding: ActivitySignUpBinding
-    private lateinit var authViewModel: AuthViewModel
+
+    private val authViewModel: AuthViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,9 +34,6 @@ class SignUpActivity : AppCompatActivity() {
             WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
 
-        val repository = AuthRepository()
-        val factory = AuthViewModelFactory(repository)
-        authViewModel = ViewModelProvider(this, factory).get(AuthViewModel::class.java)
         binding.viewmodel = authViewModel
         binding.lifecycleOwner = this
 
@@ -47,12 +47,12 @@ class SignUpActivity : AppCompatActivity() {
                         Status.SUCCESS -> {
                             binding.progressBar.visibility = View.INVISIBLE
                             it.data?.let {
-                                if(it.toString() == "logged in!") {
+                                if (it.toString() == "logged in!") {
                                     val intent = Intent(this, MainActivity::class.java)
                                     startActivity(intent)
                                     finish()
                                     Toasty.success(this, it.toString(), Toast.LENGTH_SHORT).show()
-                                }else{
+                                } else {
                                     Toasty.error(this, it.toString(), Toast.LENGTH_SHORT)
                                         .show()
                                 }

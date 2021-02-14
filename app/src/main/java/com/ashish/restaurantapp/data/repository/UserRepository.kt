@@ -1,26 +1,24 @@
 package com.ashish.restaurantapp.data.repository
 
 import android.net.Uri
-import androidx.lifecycle.MutableLiveData
-import com.ashish.restaurantapp.data.api.RetrofitInstance
+import com.ashish.restaurantapp.data.api.ApiService
+import com.ashish.restaurantapp.data.api.Keys
 import com.ashish.restaurantapp.data.models.Restaurant
 import com.ashish.restaurantapp.data.models.RestaurantX
 import com.ashish.restaurantapp.data.models.UserModel
-import com.google.android.gms.tasks.Continuation
-import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.UploadTask
 import com.google.firebase.storage.ktx.storage
 import kotlinx.coroutines.*
 import kotlinx.coroutines.tasks.await
 import java.util.*
+import javax.inject.Inject
 import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 
-class UserRepository {
+class UserRepository @Inject constructor(private var apiService : ApiService) {
 
     private val auth = Firebase.auth
     private val user: FirebaseUser? = auth.currentUser
@@ -95,8 +93,8 @@ class UserRepository {
         db.collection("Users").document(user!!.uid).collection("Wishlist").get()
             .await().documents.forEach {
                 val restaurantX: RestaurantX =
-                    RetrofitInstance.apiService.getRestaurantDetail(
-                        RetrofitInstance.userkey,
+                    apiService.getRestaurantDetail(
+                        Keys.userkey,
                         (it.get("res_id").toString()).toInt()
                     )
                 val restaurant = Restaurant(restaurantX)

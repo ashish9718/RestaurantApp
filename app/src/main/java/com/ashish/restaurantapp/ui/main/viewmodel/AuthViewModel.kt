@@ -1,12 +1,15 @@
 package com.ashish.restaurantapp.ui.main.viewmodel
 
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import com.ashish.restaurantapp.data.repository.AuthRepository
 import com.ashish.restaurantapp.utils.Resource
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class AuthViewModel(private var authRepository: AuthRepository) : ViewModel() {
+class AuthViewModel @ViewModelInject constructor(private var authRepository: AuthRepository) : ViewModel() {
 
     val pass = MutableLiveData<String>()
     val email = MutableLiveData<String>()

@@ -1,42 +1,34 @@
 package com.ashish.restaurantapp.ui.main.view.fragments
 
 import android.content.Intent
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ashish.restaurantapp.R
-import com.ashish.restaurantapp.data.api.ApiHelper
-import com.ashish.restaurantapp.data.api.RetrofitInstance
 import com.ashish.restaurantapp.data.models.*
-import com.ashish.restaurantapp.data.repository.MainRepository
 import com.ashish.restaurantapp.databinding.FragmentHomeBinding
-import com.ashish.restaurantapp.ui.base.MainViewModelFactory
 import com.ashish.restaurantapp.ui.main.adapter.*
 import com.ashish.restaurantapp.ui.main.view.activities.ResultActivity
 import com.ashish.restaurantapp.ui.main.viewmodel.MainViewModel
 import com.ashish.restaurantapp.utils.Status
 import com.denzcoskun.imageslider.constants.ScaleTypes
 import com.denzcoskun.imageslider.models.SlideModel
+import dagger.hilt.android.AndroidEntryPoint
 import es.dmoral.toasty.Toasty
-import kotlin.jvm.internal.Intrinsics
 
-
+@AndroidEntryPoint
 class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
-    private lateinit var mainViewModel: MainViewModel
+    private val mainViewModel: MainViewModel by viewModels()
 
     private lateinit var addAdapter: AddAdapter
     private lateinit var collectionsAdapter: CollectionsAdapter
@@ -64,12 +56,6 @@ class HomeFragment : Fragment() {
     override fun onActivityCreated(bundle: Bundle?) {
         super.onActivityCreated(bundle)
         val requireActivity = requireActivity()
-
-        val apiService = RetrofitInstance.apiService
-        val apiHelper = ApiHelper(apiService)
-        val repository = MainRepository(apiHelper)
-        val factory = MainViewModelFactory(repository)
-        mainViewModel = ViewModelProvider(this, factory).get(MainViewModel::class.java)
 
         binding.searchView.setOnQueryTextListener(object :
             SearchView.OnQueryTextListener {

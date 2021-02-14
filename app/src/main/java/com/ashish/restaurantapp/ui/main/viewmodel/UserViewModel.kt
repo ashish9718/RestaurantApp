@@ -1,14 +1,16 @@
 package com.ashish.restaurantapp.ui.main.viewmodel
 
 import android.net.Uri
-import androidx.lifecycle.MutableLiveData
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
-import com.ashish.restaurantapp.data.models.Restaurant
 import com.ashish.restaurantapp.data.repository.UserRepository
 import com.ashish.restaurantapp.utils.Resource
+import dagger.Provides
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class UserViewModel(private var userRepository: UserRepository) : ViewModel() {
+class UserViewModel @ViewModelInject constructor(private var userRepository: UserRepository) : ViewModel() {
 
     fun getWishlist() = liveData {
         emit(Resource.loading(null))

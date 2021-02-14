@@ -2,24 +2,24 @@ package com.ashish.restaurantapp.ui.main.view.activities
 
 import android.graphics.Color
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
-import androidx.lifecycle.ViewModelProvider
+import androidx.appcompat.app.AppCompatActivity
 import com.ashish.restaurantapp.R
-import com.ashish.restaurantapp.data.repository.UserRepository
-import com.ashish.restaurantapp.ui.base.UserViewModelFactory
 import com.ashish.restaurantapp.ui.main.viewmodel.UserViewModel
 import com.ashish.restaurantapp.utils.Status
 import com.squareup.picasso.Picasso
+import dagger.hilt.android.AndroidEntryPoint
 import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.activity_image_preview.*
 
+@AndroidEntryPoint
 class ImagePreviewActivity : AppCompatActivity() {
-    private lateinit var userViewModel: UserViewModel
+    private val userViewModel: UserViewModel by viewModels()
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,10 +32,6 @@ class ImagePreviewActivity : AppCompatActivity() {
             WindowManager.LayoutParams.FLAG_FULLSCREEN,
             WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
-
-        val repository = UserRepository()
-        val factory = UserViewModelFactory(repository)
-        userViewModel = ViewModelProvider(this, factory).get(UserViewModel::class.java)
 
         loading_anim.visibility = View.VISIBLE
 

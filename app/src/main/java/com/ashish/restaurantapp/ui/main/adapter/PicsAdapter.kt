@@ -6,25 +6,20 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
-import com.ashish.restaurantapp.data.repository.UserRepository
 import com.ashish.restaurantapp.databinding.ImageItemBinding
-import com.ashish.restaurantapp.ui.base.UserViewModelFactory
 import com.ashish.restaurantapp.ui.main.view.activities.ImagePreviewActivity
-import com.ashish.restaurantapp.ui.main.view.activities.SettingsActivity
 import com.ashish.restaurantapp.ui.main.viewmodel.UserViewModel
 import com.ashish.restaurantapp.utils.Status
 import com.squareup.picasso.Picasso
 import es.dmoral.toasty.Toasty
 
 class PicsAdapter(
-    var lifecycleOwner: LifecycleOwner,
+    private var lifecycleOwner: LifecycleOwner,
     var context: Context,
-    var list: ArrayList<String>
+    var list: ArrayList<String>,
+    private var userViewModel: UserViewModel
 ) : RecyclerView.Adapter<PicsAdapter.ViewHolder>() {
-
-    private val userViewModel = UserViewModel(UserRepository())
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)

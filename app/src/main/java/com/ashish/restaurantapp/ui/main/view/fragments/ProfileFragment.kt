@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.ashish.restaurantapp.R
 import com.ashish.restaurantapp.cloudmessaging.CloudMsgActivity
@@ -21,12 +22,14 @@ import com.ashish.restaurantapp.ui.main.viewmodel.UserViewModel
 import com.ashish.restaurantapp.utils.Resource
 import com.ashish.restaurantapp.utils.Status
 import com.squareup.picasso.Picasso
+import dagger.hilt.android.AndroidEntryPoint
 import es.dmoral.toasty.Toasty
 
+@AndroidEntryPoint
 class ProfileFragment : Fragment() {
 
     private lateinit var binding: FragmentProfileBinding
-    private lateinit var userViewModel: UserViewModel
+    private val userViewModel: UserViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,10 +41,6 @@ class ProfileFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
-        val repository = UserRepository()
-        val factory = UserViewModelFactory(repository)
-        userViewModel = ViewModelProvider(this, factory).get(UserViewModel::class.java)
 
         setUIData()
         intents()

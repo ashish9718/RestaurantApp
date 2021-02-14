@@ -2,7 +2,6 @@ package com.ashish.restaurantapp.ui.main.adapter
 
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
@@ -13,7 +12,6 @@ import com.ashish.restaurantapp.data.models.Location
 import com.ashish.restaurantapp.data.models.Restaurant
 import com.ashish.restaurantapp.data.models.RestaurantX
 import com.ashish.restaurantapp.data.models.UserRating
-import com.ashish.restaurantapp.data.repository.UserRepository
 import com.ashish.restaurantapp.ui.main.view.activities.RestaurantDetailsActivity
 import com.ashish.restaurantapp.databinding.ItemRestaurantBinding
 import com.ashish.restaurantapp.ui.main.viewmodel.UserViewModel
@@ -24,14 +22,14 @@ import es.dmoral.toasty.Toasty
 class WishlistAdapter(
     restaurantList: ArrayList<Restaurant>?,
     context: Context,
-    var lifecycleOwner: LifecycleOwner
+    private var lifecycleOwner: LifecycleOwner,
+    private var userViewModel: UserViewModel
 ) :
     RecyclerView.Adapter<WishlistAdapter.CustomViewHolder>() {
 
     private val TAG = "WishlistAdapter"
     var restaurantList: ArrayList<Restaurant>? = restaurantList
     var context: Context = context
-    var userViewModel = UserViewModel(UserRepository())
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)

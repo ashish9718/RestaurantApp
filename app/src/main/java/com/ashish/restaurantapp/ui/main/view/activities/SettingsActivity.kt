@@ -8,30 +8,28 @@ import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
-import com.ashish.restaurantapp.data.repository.UserRepository
 import com.ashish.restaurantapp.databinding.ActivitySettingsBinding
-import com.ashish.restaurantapp.ui.base.UserViewModelFactory
 import com.ashish.restaurantapp.ui.main.adapter.PicsAdapter
 import com.ashish.restaurantapp.ui.main.viewmodel.UserViewModel
 import com.ashish.restaurantapp.utils.Status
+import dagger.hilt.android.AndroidEntryPoint
 import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.activity_settings.*
-
+@AndroidEntryPoint
 class SettingsActivity : AppCompatActivity() {
 
-    private val TAG = "SettingsActivity"
     private val PICK_PROFILE_PIC = 1
 
     private var filePath: Uri? = null
     private lateinit var activitySettingsBinding: ActivitySettingsBinding
     lateinit var pic_type: String
-    private lateinit var userViewModel: UserViewModel
     private lateinit var picsAdapter: PicsAdapter
 
+    private val userViewModel: UserViewModel by viewModels()
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,10 +38,6 @@ class SettingsActivity : AppCompatActivity() {
         setContentView(activitySettingsBinding.root)
         supportActionBar?.hide()
         window.statusBarColor = Color.TRANSPARENT
-
-        val repository = UserRepository()
-        val factory = UserViewModelFactory(repository)
-        userViewModel = ViewModelProvider(this, factory).get(UserViewModel::class.java)
 
         activitySettingsBinding.chooseProfilePic.setOnClickListener {
             pic_type = "profile_pic"
@@ -90,7 +84,7 @@ class SettingsActivity : AppCompatActivity() {
                 Status.SUCCESS -> {
                     activitySettingsBinding.loadingMain.visibility = View.GONE
                     it.data?.let {
-                        picsAdapter = PicsAdapter(this, this, it)
+                        picsAdapter = PicsAdapter(this, this, it,userViewModel)
                         activitySettingsBinding.imagesRecyclerview.adapter = picsAdapter
                         activitySettingsBinding.imagesRecyclerview.layoutManager =
                             GridLayoutManager(this, 3)

@@ -1,12 +1,15 @@
 package com.ashish.restaurantapp.data.repository
 
+import androidx.hilt.lifecycle.ViewModelInject
 import com.ashish.restaurantapp.data.models.UserModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.tasks.await
+import javax.inject.Inject
 
-class AuthRepository {
+class AuthRepository @Inject constructor() {
     private var auth: FirebaseAuth = FirebaseAuth.getInstance()
     private val db = FirebaseFirestore.getInstance()
 

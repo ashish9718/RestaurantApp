@@ -1,11 +1,14 @@
 package com.ashish.restaurantapp.ui.main.viewmodel
 
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import com.ashish.restaurantapp.data.repository.RestaurantRepository
 import com.ashish.restaurantapp.utils.Resource
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class RestaurantViewModel(private var restaurantRepository: RestaurantRepository) : ViewModel() {
+class RestaurantViewModel @ViewModelInject constructor(private var restaurantRepository: RestaurantRepository) : ViewModel() {
 
     fun getRestaurantsUsingSearch(querry: String) = liveData {
         emit(Resource.loading(null))

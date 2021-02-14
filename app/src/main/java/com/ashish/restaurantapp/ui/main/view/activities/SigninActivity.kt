@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.ashish.restaurantapp.R
 import com.ashish.restaurantapp.databinding.ActivitySigninBinding
@@ -16,22 +17,20 @@ import com.ashish.restaurantapp.ui.main.viewmodel.AuthViewModel
 import com.ashish.restaurantapp.utils.Resource
 import com.ashish.restaurantapp.utils.Status
 import com.squareup.picasso.Picasso
+import dagger.hilt.android.AndroidEntryPoint
 import es.dmoral.toasty.Toasty
-
+@AndroidEntryPoint
 class SigninActivity : AppCompatActivity() {
     private val TAG = "SigninActivity"
 
     private lateinit var binding: ActivitySigninBinding
-    private lateinit var authViewModel: AuthViewModel
+    private val authViewModel: AuthViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySigninBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val repository = AuthRepository()
-        val factory = AuthViewModelFactory(repository)
-        authViewModel = ViewModelProvider(this, factory).get(AuthViewModel::class.java)
         binding.viewmodel = authViewModel
         binding.lifecycleOwner = this
 

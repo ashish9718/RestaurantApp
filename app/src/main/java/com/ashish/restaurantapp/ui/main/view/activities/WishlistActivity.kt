@@ -7,26 +7,25 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.ashish.restaurantapp.data.repository.UserRepository
 import com.ashish.restaurantapp.ui.main.adapter.WishlistAdapter
 import com.ashish.restaurantapp.databinding.ActivityWishlistBinding
-import com.ashish.restaurantapp.ui.base.UserViewModelFactory
 import com.ashish.restaurantapp.ui.main.viewmodel.UserViewModel
 import com.ashish.restaurantapp.utils.Status
+import dagger.hilt.android.AndroidEntryPoint
 import es.dmoral.toasty.Toasty
 
+@AndroidEntryPoint
 class WishlistActivity : AppCompatActivity() {
 
     private val TAG = "WishlistActivity"
     private lateinit var activityWishlistBinding: ActivityWishlistBinding
     private lateinit var wishlistAdapter: WishlistAdapter
-
-    private lateinit var userViewModel: UserViewModel
+    private val userViewModel: UserViewModel by viewModels()
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,10 +36,6 @@ class WishlistActivity : AppCompatActivity() {
         supportActionBar?.hide()
         window.statusBarColor = Color.TRANSPARENT
 
-        val repository = UserRepository()
-        val factory = UserViewModelFactory(repository)
-        userViewModel = ViewModelProvider(this, factory).get(UserViewModel::class.java)
-
         activityWishlistBinding.wishlistLoading.visibility = View.VISIBLE
 
         userViewModel.getWishlist().observe(this) { resource ->
@@ -50,7 +45,7 @@ class WishlistActivity : AppCompatActivity() {
                     resource.data?.let {
                         if (it.isNotEmpty()) {
                             activityWishlistBinding.wishlistTv.visibility = View.GONE
-                            wishlistAdapter = WishlistAdapter(it, this,this)
+                            wishlistAdapter = WishlistAdapter(it, this, this,userViewModel)
                             activityWishlistBinding.wishlistRecyclerview.layoutManager =
                                 LinearLayoutManager(applicationContext)
                             activityWishlistBinding.wishlistRecyclerview.adapter = wishlistAdapter

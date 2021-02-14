@@ -1,12 +1,14 @@
 package com.ashish.restaurantapp.ui.main.viewmodel
 
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import com.ashish.restaurantapp.data.repository.MainRepository
 import com.ashish.restaurantapp.utils.Resource
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-
-class MainViewModel(var mainRepository: MainRepository) : ViewModel() {
+class MainViewModel @ViewModelInject constructor(private var mainRepository: MainRepository) : ViewModel() {
 
     fun getCategories() = liveData {
             emit(Resource.loading(null))

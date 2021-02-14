@@ -7,11 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import com.ashish.restaurantapp.databinding.FragmentCartBinding
 import com.ashish.restaurantapp.databinding.FragmentHomeBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class CartFragment : Fragment() {
 
     private lateinit var binding: FragmentCartBinding
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

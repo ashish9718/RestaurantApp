@@ -11,7 +11,9 @@ import android.os.Handler
 import android.view.View
 import android.view.WindowManager
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
+import androidx.fragment.app.viewModels
 import com.ashish.restaurantapp.R
 import com.ashish.restaurantapp.data.repository.UserRepository
 import com.ashish.restaurantapp.ui.main.view.activities.MainActivity
@@ -28,7 +30,8 @@ import kotlinx.android.synthetic.main.activity_splash.*
 class SplashActivity : AppCompatActivity() {
 
     private var user: FirebaseUser? = null
-    lateinit var userViewModel: UserViewModel
+    //    lateinit var userViewModel: UserViewModel
+    private val userViewModel: UserViewModel by viewModels()
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,9 +44,9 @@ class SplashActivity : AppCompatActivity() {
             WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
         window.statusBarColor = Color.TRANSPARENT
-        userViewModel = UserViewModel(UserRepository())
+//        userViewModel = UserViewModel(UserRepository())
 
-        try_again.setOnClickListener{
+        try_again.setOnClickListener {
             checkConnection()
         }
 
@@ -57,17 +60,18 @@ class SplashActivity : AppCompatActivity() {
         }, 3000)
     }
 
-    private fun checkConnection(){
-        val manager = applicationContext.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+    private fun checkConnection() {
+        val manager =
+            applicationContext.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val networkInfo = manager.activeNetworkInfo
 
-        if (networkInfo != null){
+        if (networkInfo != null) {
             loading.visibility = View.GONE
             try_again.visibility = View.GONE
             app_img.visibility = View.VISIBLE
             Splashview.setBackgroundColor(Color.BLACK)
             checkUser()
-        }else{
+        } else {
             loading.visibility = View.VISIBLE
             try_again.visibility = View.VISIBLE
             Splashview.setBackgroundColor(Color.WHITE)
@@ -78,7 +82,7 @@ class SplashActivity : AppCompatActivity() {
     private fun checkUser() {
         if (user != null) {
             startActivity(Intent(this, MainActivity::class.java))
-            userViewModel.getUserDetails().observe(this){ resource->
+            userViewModel.getUserDetails().observe(this) { resource ->
                 when (resource.status) {
                     Status.SUCCESS -> {
                         resource.data?.let {

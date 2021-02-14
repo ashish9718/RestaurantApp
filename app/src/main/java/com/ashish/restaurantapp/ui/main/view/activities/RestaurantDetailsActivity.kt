@@ -6,28 +6,27 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModelProvider
 import com.ashish.restaurantapp.R
-import com.ashish.restaurantapp.data.api.ApiHelper
-import com.ashish.restaurantapp.data.api.RetrofitInstance
 import com.ashish.restaurantapp.data.models.Location
 import com.ashish.restaurantapp.data.models.RestaurantX
-import com.ashish.restaurantapp.data.repository.RestaurantRepository
 import com.ashish.restaurantapp.databinding.ActivityRestaurantDetailsBinding
-import com.ashish.restaurantapp.ui.base.RestaurantViewModelFactory
-import com.ashish.restaurantapp.ui.main.adapter.ItemRestaurantAdapter
 import com.ashish.restaurantapp.ui.main.viewmodel.RestaurantViewModel
 import com.ashish.restaurantapp.utils.Status
 import com.squareup.picasso.Picasso
+import dagger.hilt.android.AndroidEntryPoint
 import es.dmoral.toasty.Toasty
 
+@AndroidEntryPoint
 class RestaurantDetailsActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRestaurantDetailsBinding
-    private lateinit var restaurantViewModel: RestaurantViewModel
     private val TAG = "RestaurantDetailsActivity"
+
+    private val restaurantViewModel: RestaurantViewModel by viewModels()
+
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,12 +35,6 @@ class RestaurantDetailsActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_restaurant_details)
         supportActionBar?.hide()
         window.statusBarColor = Color.TRANSPARENT
-
-        val apiService = RetrofitInstance.apiService
-        val apiHelper = ApiHelper(apiService)
-        val repository = RestaurantRepository(apiHelper)
-        val factory = RestaurantViewModelFactory(repository)
-        restaurantViewModel = ViewModelProvider(this, factory).get(RestaurantViewModel::class.java)
 
         val id: Int = intent.getStringExtra("rest_id").toString().toInt()
 

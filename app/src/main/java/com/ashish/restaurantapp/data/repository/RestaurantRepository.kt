@@ -1,8 +1,9 @@
 package com.ashish.restaurantapp.data.repository
 
 import com.ashish.restaurantapp.data.api.ApiHelper
+import javax.inject.Inject
 
-class RestaurantRepository(private var apiHelper: ApiHelper) {
+class RestaurantRepository @Inject constructor(private var apiHelper: ApiHelper) {
 
     suspend fun getRestaurantsUsingSearch(querry: String) =
         apiHelper.getRestaurantsUsingSearch(querry)

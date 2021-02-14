@@ -1,41 +1,17 @@
 package com.ashish.restaurantapp.ui.main.view.activities
 
-import android.annotation.SuppressLint
-import android.content.Intent
-import android.content.res.Resources
 import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.os.Bundle
 import android.view.View
-import android.view.WindowManager
-import android.widget.HorizontalScrollView
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.SearchView
-import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.NavController
-import androidx.navigation.NavDestination
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.NavHostFragment.findNavController
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.ashish.restaurantapp.R
-import com.ashish.restaurantapp.data.api.ApiHelper
-import com.ashish.restaurantapp.data.api.RetrofitInstance
 import com.ashish.restaurantapp.databinding.ActivityMainBinding
-import com.ashish.restaurantapp.data.models.*
-import com.ashish.restaurantapp.data.repository.MainRepository
-import com.ashish.restaurantapp.ui.base.MainViewModelFactory
-import com.ashish.restaurantapp.ui.main.adapter.*
-import com.ashish.restaurantapp.ui.main.viewmodel.MainViewModel
-import com.denzcoskun.imageslider.constants.ScaleTypes
-import com.denzcoskun.imageslider.models.SlideModel
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.coroutines.*
-import retrofit2.*
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private val TAG = "MainActivity"
