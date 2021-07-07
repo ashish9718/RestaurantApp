@@ -1,16 +1,13 @@
 package com.ashish.restaurantapp.ui.main.view.activities
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
 import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.lifecycle.ViewModelProvider
-import com.ashish.restaurantapp.data.repository.AuthRepository
+import androidx.appcompat.app.AppCompatActivity
 import com.ashish.restaurantapp.databinding.ActivitySignUpBinding
-import com.ashish.restaurantapp.ui.base.AuthViewModelFactory
 import com.ashish.restaurantapp.ui.main.viewmodel.AuthViewModel
 import com.ashish.restaurantapp.utils.Resource
 import com.ashish.restaurantapp.utils.Status

@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     package="com.ashish.restaurantapp">
 
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
 
@@ -15,8 +14,13 @@
         android:roundIcon="@mipmap/launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.RestaurantApp">
-        <activity android:name=".cloudmessaging.CloudMsgActivity"/>
-        <service android:name=".cloudmessaging.FirebaseService"
+
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-7036481696531159~7053833988" />
+
+        <service
+            android:name=".cloudmessaging.FirebaseService"
             android:permission="com.google.android.c2dm.permission.SEND">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
@@ -24,6 +28,8 @@
             </intent-filter>
 
         </service>
+
+        <activity android:name=".cloudmessaging.CloudMsgActivity" />
         <activity android:name=".ui.main.view.activities.ImagePreviewActivity" />
         <activity android:name=".ui.main.view.activities.SettingsActivity" />
         <activity android:name=".ui.main.view.activities.SigninActivity" />

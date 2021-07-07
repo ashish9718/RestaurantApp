@@ -1,24 +1,19 @@
 package com.ashish.restaurantapp.ui.main.view.activities
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
 import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.lifecycle.ViewModelProvider
-import com.ashish.restaurantapp.R
+import androidx.appcompat.app.AppCompatActivity
 import com.ashish.restaurantapp.databinding.ActivitySigninBinding
-import com.ashish.restaurantapp.data.repository.AuthRepository
-import com.ashish.restaurantapp.ui.base.AuthViewModelFactory
-import com.ashish.restaurantapp.utils.toastt
 import com.ashish.restaurantapp.ui.main.viewmodel.AuthViewModel
 import com.ashish.restaurantapp.utils.Resource
 import com.ashish.restaurantapp.utils.Status
-import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 import es.dmoral.toasty.Toasty
+
 @AndroidEntryPoint
 class SigninActivity : AppCompatActivity() {
     private val TAG = "SigninActivity"

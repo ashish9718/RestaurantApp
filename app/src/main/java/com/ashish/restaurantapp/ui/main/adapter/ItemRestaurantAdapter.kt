@@ -4,6 +4,8 @@ import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
@@ -95,6 +97,11 @@ class ItemRestaurantAdapter(
                 holder.itemRestaurantBinding!!.wishlist.setImageResource(R.drawable.bookmark)
             }
         }
+
+
+        val animation: Animation = AnimationUtils.loadAnimation(context, R.anim.translateup_smooth_anim)
+        holder.itemView.startAnimation(animation)
+
 
     }
 

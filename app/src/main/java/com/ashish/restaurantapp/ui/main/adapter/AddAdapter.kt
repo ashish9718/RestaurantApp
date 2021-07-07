@@ -9,7 +9,6 @@ import com.squareup.picasso.Picasso
 
 class AddAdapter ( var list : List<Int>) : RecyclerView.Adapter<AddAdapter.ViewHolder>() {
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val addsItemBinding: AddsItemBinding =AddsItemBinding.inflate(layoutInflater, parent, false)

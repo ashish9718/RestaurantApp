@@ -23,10 +23,11 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import dagger.hilt.android.AndroidEntryPoint
 import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.activity_image_preview.*
 import kotlinx.android.synthetic.main.activity_splash.*
-
+@AndroidEntryPoint
 class SplashActivity : AppCompatActivity() {
 
     private var user: FirebaseUser? = null

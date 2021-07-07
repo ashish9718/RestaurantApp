@@ -15,7 +15,7 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object AppModule {
 
-    val baseurl = "https://developers.zomato.com/api/v2.1/"
+    private const val baseurl = "https://developers.zomato.com/api/v2.1/"
 
     @Provides
     @Singleton

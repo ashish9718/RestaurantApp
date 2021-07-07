@@ -2,24 +2,19 @@ package com.ashish.restaurantapp.ui.main.view.fragments
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import com.ashish.restaurantapp.R
 import com.ashish.restaurantapp.cloudmessaging.CloudMsgActivity
-import com.ashish.restaurantapp.data.repository.UserRepository
-import com.ashish.restaurantapp.databinding.FragmentCartBinding
 import com.ashish.restaurantapp.databinding.FragmentProfileBinding
-import com.ashish.restaurantapp.ui.base.UserViewModelFactory
 import com.ashish.restaurantapp.ui.main.view.activities.SettingsActivity
 import com.ashish.restaurantapp.ui.main.view.activities.SigninActivity
 import com.ashish.restaurantapp.ui.main.view.activities.WishlistActivity
 import com.ashish.restaurantapp.ui.main.viewmodel.UserViewModel
-import com.ashish.restaurantapp.utils.Resource
 import com.ashish.restaurantapp.utils.Status
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
