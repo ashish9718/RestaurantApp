@@ -4,7 +4,10 @@ import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.RecyclerView
+import com.ashish.restaurantapp.R
 import com.ashish.restaurantapp.data.models.CuisineList
 import com.ashish.restaurantapp.ui.main.view.activities.MainActivity
 import com.ashish.restaurantapp.ui.main.view.activities.ResultActivity
@@ -33,6 +36,11 @@ class CuisineAdapter(context: Context, body: CuisineList): RecyclerView.Adapter<
             intent.action = "cuisine"
             context.startActivity(intent)
         }
+
+        val animation: Animation = AnimationUtils.loadAnimation(context, R.anim.translateup_smooth_anim)
+        holder.itemView.startAnimation(animation)
+
+
     }
 
     override fun getItemCount(): Int {

@@ -2,6 +2,8 @@ package com.ashish.restaurantapp.ui.main.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.RecyclerView
 import com.ashish.restaurantapp.R
 import com.ashish.restaurantapp.databinding.AddsItemBinding
@@ -19,6 +21,7 @@ class AddAdapter ( var list : List<Int>) : RecyclerView.Adapter<AddAdapter.ViewH
         val listItem = list[position]
 
         holder.bind(listItem)
+
     }
 
     override fun getItemCount(): Int {

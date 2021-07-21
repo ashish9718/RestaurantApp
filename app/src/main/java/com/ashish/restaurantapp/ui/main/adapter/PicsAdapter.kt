@@ -4,9 +4,12 @@ import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
+import com.ashish.restaurantapp.R
 import com.ashish.restaurantapp.databinding.ImageItemBinding
 import com.ashish.restaurantapp.ui.main.view.activities.ImagePreviewActivity
 import com.ashish.restaurantapp.ui.main.viewmodel.UserViewModel
@@ -55,6 +58,10 @@ class PicsAdapter(
             list.removeAt(position)
             notifyItemRemoved(position)
         }
+
+        val animation: Animation = AnimationUtils.loadAnimation(context, R.anim.translateup_smooth_anim)
+        holder.itemView.startAnimation(animation)
+
 
     }
 

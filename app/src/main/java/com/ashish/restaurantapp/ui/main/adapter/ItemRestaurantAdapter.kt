@@ -1,12 +1,15 @@
 package com.ashish.restaurantapp.ui.main.adapter
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.Toast
+import androidx.core.app.ActivityOptionsCompat
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
 import com.ashish.restaurantapp.R
@@ -20,7 +23,6 @@ import com.ashish.restaurantapp.ui.main.viewmodel.UserViewModel
 import com.ashish.restaurantapp.utils.Status
 import com.squareup.picasso.Picasso
 import es.dmoral.toasty.Toasty
-import javax.inject.Inject
 
 class ItemRestaurantAdapter(
     private var restaurantList: List<Restaurant>?,
@@ -98,10 +100,9 @@ class ItemRestaurantAdapter(
             }
         }
 
-
-        val animation: Animation = AnimationUtils.loadAnimation(context, R.anim.translateup_smooth_anim)
+        val animation: Animation =
+            AnimationUtils.loadAnimation(context, R.anim.translateup_smooth_anim)
         holder.itemView.startAnimation(animation)
-
 
     }
 
@@ -138,21 +139,18 @@ class ItemRestaurantAdapter(
 //                itemRestaurantBinding!!.restaurantAddress,
 //                "restLocation"
 //            )
-//            val options =
-//                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-//                    ActivityOptions.makeSceneTransitionAnimation(
-//                        context as Activity?,
-//                        pair1,
-//                        pair2,
-//                        pair3
-//                    )
-//                } else {
-//                    TODO("VERSION.SDK_INT < LOLLIPOP")
-//                }
+
+            val options: ActivityOptionsCompat =
+                ActivityOptionsCompat.makeSceneTransitionAnimation(
+                    context as Activity,
+                    itemRestaurantBinding!!.imageview,
+                    "resImage",
+                )
+
             itemView.setOnClickListener {
                 val intent = Intent(context, RestaurantDetailsActivity::class.java)
                 intent.putExtra("rest_id", id)
-                context.startActivity(intent)
+                context.startActivity(intent, options.toBundle())
             }
         }
     }

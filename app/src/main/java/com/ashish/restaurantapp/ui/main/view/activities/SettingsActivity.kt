@@ -75,7 +75,6 @@ class SettingsActivity : AppCompatActivity() {
             imageListObserver()
             swiperefreshlayout.isRefreshing = false
         }
-
     }
 
     private fun imageListObserver() {
@@ -86,9 +85,10 @@ class SettingsActivity : AppCompatActivity() {
                     it.data?.let {
                         picsAdapter = PicsAdapter(this, this, it,userViewModel)
                         activitySettingsBinding.imagesRecyclerview.adapter = picsAdapter
-                        activitySettingsBinding.imagesRecyclerview.layoutManager =
-                            GridLayoutManager(this, 3)
+//                        activitySettingsBinding.imagesRecyclerview.layoutManager =
+//                            GridLayoutManager(this, 3)
                         picsAdapter.notifyDataSetChanged()
+                        activitySettingsBinding.imagesRecyclerview.scheduleLayoutAnimation()
                     }
                 }
                 Status.LOADING -> {

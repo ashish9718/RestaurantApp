@@ -120,8 +120,7 @@
                 </LinearLayout>
             </LinearLayout>
 
-
-            <androidx.recyclerview.widget.RecyclerView
+            <com.mlsdev.animatedrv.AnimatedRecyclerView
                 android:id="@+id/images_recyclerview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -130,8 +129,12 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginRight="8dp"
                 android:layout_marginBottom="8dp"
-                android:background="@color/white" />
-
+                android:background="@color/white"
+                app:animationDuration="600"
+                app:layoutAnimation="@anim/layout_animation_from_bottom_random"
+                app:layoutManagerReverse="false"
+                app:gridLayoutManagerColumns="3"
+                app:layoutManagerType="grid" />
 
             <com.airbnb.lottie.LottieAnimationView
                 android:id="@+id/loading_main"

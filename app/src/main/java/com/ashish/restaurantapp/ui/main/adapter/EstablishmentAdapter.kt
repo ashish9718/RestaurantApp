@@ -4,7 +4,10 @@ import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.RecyclerView
+import com.ashish.restaurantapp.R
 import com.ashish.restaurantapp.data.models.Establishment
 import com.ashish.restaurantapp.data.models.EstablishmentList
 import com.ashish.restaurantapp.ui.main.view.activities.MainActivity
@@ -33,6 +36,11 @@ class EstablishmentAdapter(val context: Context, establishmentList: Establishmen
             intent.action = "establishment"
             context.startActivity(intent)
         }
+
+        val animation: Animation = AnimationUtils.loadAnimation(context, R.anim.translateup_smooth_anim)
+        holder.itemView.startAnimation(animation)
+
+
     }
 
     override fun getItemCount(): Int {

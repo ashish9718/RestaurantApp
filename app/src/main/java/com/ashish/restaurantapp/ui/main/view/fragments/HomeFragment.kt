@@ -270,6 +270,8 @@ class HomeFragment : Fragment() {
         binding.collectionRecyclerview.layoutManager =
             LinearLayoutManager(activity)
         binding.collectionRecyclerview.adapter = collectionsAdapter
+
+        collectionsAdapter.notifyDataSetChanged()
     }
 
 
